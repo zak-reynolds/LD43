@@ -4,5 +4,7 @@
     {
         public string Name { get; set; }
         public Position Position;
+        public int Strength { get; set; }
+        public int Virginity { get; set; }
     }
 }

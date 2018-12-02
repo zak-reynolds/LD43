@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root Type="DevExpress.CodeRush.Foundation.Navigation.QuickNav.Filters.FilterOptions">
+  <Options Language="Neutral">
+    <Items>
+      <Item Id="{4df30c15-d6ae-4a72-9984-05291fb214cc}">
+        <FilterName>W - Private</FilterName>
+      </Item>
+      <Item Id="{6c29f49c-78d7-4be1-9196-e0c505fd8bb9}">
+        <FilterName>O - Protected</FilterName>
+      </Item>
+      <Item Id="{0c1eb80d-6309-4d98-9a59-a4ca4b27c0c1}">
+        <FilterName>N - Internal/Friend</FilterName>
+      </Item>
+      <Item Id="{d9b059eb-ef89-4920-a56f-e926608c6fdd}">
+        <FilterName>T - Protected Internal/Friend</FilterName>
+      </Item>
+      <Item Id="{1fd6c4cb-02f9-420f-be96-584d4c6efa04}">
+        <FilterName>B - Public</FilterName>
+      </Item>
+      <Item Id="{c6e1f2f2-c8e7-4c57-9704-c1b48d2fc7b5}">
+        <FilterName>C - Class</FilterName>
+      </Item>
+      <Item Id="{0360d7c1-f332-4631-9d0a-9a3f8b485265}">
+        <FilterName>S - Struct</FilterName>
+      </Item>
+      <Item Id="{501a2a40-6b39-49c8-9a84-4160a62480dd}">
+        <FilterName>I - Interface</FilterName>
+      </Item>
+      <Item Id="{50cc9c12-7569-4729-809a-42873000ac0e}">
+        <FilterName>E - Enum</FilterName>
+      </Item>
+      <Item Id="{f1960b24-4dcb-4610-af49-9cbac0c06f61}">
+        <FilterName>D - Delegate</FilterName>
+      </Item>
+      <Item Id="{bdb578ac-6a88-4051-a63d-24793a6cff72}">
+        <FilterName>2 - Project</FilterName>
+        <IsActive>False</IsActive>
+      </Item>
+      <Item Id="{720661d3-dfa4-45e8-b791-b91d097c4be6}">
+        <FilterName>3 - Namespace</FilterName>
+        <IsActive>False</IsActive>
+      </Item>
+      <Item Id="{29d662cd-79e7-4e5d-a78d-0c1b5ec45744}">
+        <FilterName>4 - File</FilterName>
+        <IsActive>False</IsActive>
+      </Item>
+      <Item Id="{21143a9b-b464-4dc6-bb8a-c497b1098dc0}">
+        <FilterName>M - Methods</FilterName>
+      </Item>
+      <Item Id="{21c30e15-45fd-4086-98de-695474737420}">
+        <FilterName>P - Properties</FilterName>
+      </Item>
+      <Item Id="{79b5ea1c-e4e2-44e7-a357-96a816a8e14e}">
+        <FilterName>V - Events</FilterName>
+      </Item>
+      <Item Id="{4655a018-cb67-4405-af45-68f30cbb4861}">
+        <FilterName>F - Fields</FilterName>
+      </Item>
+      <Item Id="{968706cf-5d06-4b7d-8065-84f4c3895f63}">
+        <FilterName>1 - Solution</FilterName>
+        <IsActive>False</IsActive>
+      </Item>
+      <Item Id="{6f685956-b9bf-49c1-96d3-e472583e6b24}">
+        <FilterName>L - Variables</FilterName>
+      </Item>
+    </Items>
+  </Options>
+</Root>

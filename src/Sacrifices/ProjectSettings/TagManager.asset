@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SpawnPanel
+  - FightPanel
+  - AdvancePanel
+  - AdvancePanel-Room
+  - AdvancePanel-Pick
+  - AdvancePanel-Pleb
   layers:
   - Default
   - TransparentFX
