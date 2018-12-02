@@ -24,12 +24,14 @@ namespace Assets.Scripts.Phases
         {
             Debug.Log("Entering Spawn phase");
             spawnPanel.SetActive(true);
-            manager.EndBattle();
         }
 
         public override void Action(string action)
         {
-            manager.SpawnPleb(uniqueNames.Pop());
+            string name = uniqueNames.Pop();
+            manager.SpawnPleb(name);
+            manager.ClearBattleLog();
+            manager.LogBattleEvent($"{name} arises from the dust.");
 
             manager.NextPhase();
         }

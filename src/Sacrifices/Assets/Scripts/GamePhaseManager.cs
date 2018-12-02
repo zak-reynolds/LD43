@@ -10,6 +10,7 @@ public class GamePhaseManager : MonoBehaviour {
     public Text SoulCounter;
     public Text PlebListText;
     public Text BattleLog;
+    public GameObject ActionBar;
 
     [Header("Game Balance")]
     public int StartingSoul = 20;
@@ -42,6 +43,7 @@ public class GamePhaseManager : MonoBehaviour {
         locationReference.Add(Position.Location.B, new List<Pleb>(10));
         locationReference.Add(Position.Location.C, new List<Pleb>(10));
         locationReference.Add(Position.Location.D, new List<Pleb>(10));
+        locationReference.Add(Position.Location.Altar, new List<Pleb>(20));
         phases.Add(Phase.Spawn, new Assets.Scripts.Phases.Spawn(this));
         phases.Add(Phase.Fight, new Assets.Scripts.Phases.Fight(this));
         phases.Add(Phase.Advance, new Assets.Scripts.Phases.Advance(this));
@@ -111,7 +113,7 @@ public class GamePhaseManager : MonoBehaviour {
         UpdateUI();
     }
 
-    public void EndBattle()
+    public void ClearBattleLog()
     {
         battleEvents.Clear();
     }
@@ -182,21 +184,39 @@ public class GamePhaseManager : MonoBehaviour {
             Debug.LogError($"Cannot advance with fewer than two plebs at {location}");
             return;
         }
-        var nextLocation = (Position.Location)(((int)location + 1) % Enum.GetNames(typeof(Position.Location)).Length);
-        Debug.Log(nextLocation);
+        var nextLocation = (Position.Location)((int)location + 1);
         var nextLocationPlebs = locationReference[nextLocation];
-        foreach (Pleb p in nextLocationPlebs)
-        {
-            Debug.Log(p.Name);
-        }
         var advancer = locationReference[location][1];
         locationPlebs.RemoveAt(1);
         nextLocationPlebs.Add(advancer);
         advancer.Position.CurrentLocation = nextLocation;
         UpdateLocation(locationPlebs);
         UpdateLocation(nextLocationPlebs);
+        LogBattleEvent($"{advancer.Name} sneaks through the door.");
+        if (nextLocation == Position.Location.Altar)
+        {
+            AltarSacrificePleb(advancer);
+        }
 
         UpdateUI();
+    }
+
+    private void AltarSacrificePleb(Pleb pleb)
+    {
+        ClearBattleLog();
+        LogBattleEvent($"{pleb.Name} steps up to the altar...");
+        if (pleb.Virginity == 0)
+        {
+            ActionBar.SetActive(false);
+            LogBattleEvent($"A crash of lightning strikes {pleb.Name}!");
+            LogBattleEvent($"You feel energy coursing through your body as you are pulled to the mortal plane. This land will finally be yours for the taking!");
+            LogBattleEvent($"Thanks for playing! You made it through a Jam entry to Ludum Dare 43: Sacrifices must be Made.");
+            LogBattleEvent($"Created by Zak Reynolds and Clint Glenn");
+        } else
+        {
+            LogBattleEvent($"A rush of fire rises from the floor and consumes {pleb.Name}!");
+            LogBattleEvent($"The sour taste of a happy person is left in your mouth.");
+        }
     }
 
     private void UpdateLocation(List<Pleb> locationPlebs)

@@ -2,7 +2,7 @@
 {
     public class Position
     {
-        public enum Location { A, B, C, D }
+        public enum Location { A, B, C, D, Altar }
         public Location CurrentLocation;
         public int MarchingOrder;
     }

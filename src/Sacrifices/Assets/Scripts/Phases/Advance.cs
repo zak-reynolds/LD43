@@ -57,7 +57,6 @@ namespace Assets.Scripts.Phases
                     for (int i = 0; i < sacrifice.Strength; ++i)
                     {
                         manager.AdvancePleb(targetLocation);
-                        manager.LogBattleEvent($"A pleb sneaks through the door.");
                     }
                     manager.SacrificePleb(targetLocation);
                     manager.LogBattleEvent($"{sacrifice.Name} can no longer hold on and is brutally crushed under the door's weight.");

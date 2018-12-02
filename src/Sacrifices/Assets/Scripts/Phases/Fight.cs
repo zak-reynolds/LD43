@@ -66,7 +66,6 @@ namespace Assets.Scripts.Phases
 
         public override void Exit()
         {
-            manager.EndBattle();
             fightPanel.SetActive(false);
         }
     }
