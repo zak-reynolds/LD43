@@ -61,6 +61,12 @@ namespace Assets.Scripts.Phases
                     manager.SacrificePleb(targetLocation);
                     manager.LogBattleEvent($"{sacrifice.Name} can no longer hold on and is brutally crushed under the door's weight.");
                     break;
+                case "consume":
+                    var touchTargetLocation = (Position.Location)Enum.Parse(typeof(Position.Location), actionTarget);
+                    var touchSacrifice = manager.GetActivePleb(touchTargetLocation);
+                    manager.LogBattleEvent($"{touchSacrifice.Name} feels compelled to walk to the idol and place a hand on it.");
+                    manager.ConsumePleb(touchSacrifice);
+                    break;
             }
             manager.NextPhase();
         }

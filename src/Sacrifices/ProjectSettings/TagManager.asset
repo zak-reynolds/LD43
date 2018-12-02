@@ -10,6 +10,7 @@ TagManager:
   - AdvancePanel-Room
   - AdvancePanel-Pick
   - AdvancePanel-Pleb
+  - RestartPanel
   layers:
   - Default
   - TransparentFX

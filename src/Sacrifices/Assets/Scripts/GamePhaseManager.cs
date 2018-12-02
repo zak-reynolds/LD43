@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GamePhaseManager : MonoBehaviour {
@@ -48,6 +49,7 @@ public class GamePhaseManager : MonoBehaviour {
         phases.Add(Phase.Fight, new Assets.Scripts.Phases.Fight(this));
         phases.Add(Phase.Advance, new Assets.Scripts.Phases.Advance(this));
         phases[phase].Enter();
+        UpdateUI();
     }
 
     public void UpdateUI()
@@ -248,4 +250,48 @@ public class GamePhaseManager : MonoBehaviour {
     public void UpdateSeedName2(string name) => SeedNames[2] = name;
     public void UpdateSeedName3(string name) => SeedNames[3] = name;
     public void UpdateSeedName4(string name) => SeedNames[4] = name;
+
+    public void ConsumePleb(Pleb touchSacrifice)
+    {
+        LogBattleEvent($"{touchSacrifice.Name} disintegrates in a flash of light!");
+        if (touchSacrifice.Virginity == 0)
+        {
+            Soul += 6 + touchSacrifice.Strength;
+            if (touchSacrifice.Strength < 3)
+            {
+                LogBattleEvent("You feel your vitality increase as the smell of virgin blood fills the air.");
+            } else
+            {
+                LogBattleEvent("You feel your vitality greatly increase! Strong virgin, this one.");
+            }
+        } else
+        {
+            if (touchSacrifice.Strength == 0)
+            {
+                LogBattleEvent("You are disgusted at this pathetic excuse for a sacrifice.");
+            }
+            else if (touchSacrifice.Strength < 2)
+            {
+                Soul += 2;
+                LogBattleEvent("Although distasteful, the offering functions as a small snack.");
+            }
+            else
+            {
+                Soul += 4;
+                LogBattleEvent("Strong, but not the kind of blood you are interested in. A virgin will be better");
+            }
+        }
+
+        var locationPlebs = locationReference[touchSacrifice.Position.CurrentLocation];
+        locationPlebs.RemoveAt(0);
+        plebs.Remove(touchSacrifice);
+        UpdateLocation(locationPlebs);
+
+        UpdateUI();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
 }

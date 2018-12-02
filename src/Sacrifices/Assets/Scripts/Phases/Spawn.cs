@@ -7,10 +7,13 @@ namespace Assets.Scripts.Phases
     public class Spawn : Phase
     {
         private GameObject spawnPanel;
+        private GameObject restartPanel;
         private Stack<string> uniqueNames;
 
         public Spawn(GamePhaseManager manager) : base(manager) {
             spawnPanel = GameObject.FindGameObjectWithTag("SpawnPanel");
+            restartPanel = GameObject.FindGameObjectWithTag("RestartPanel");
+            restartPanel.SetActive(false);
             var names = manager.SeedNames
                 .Select(name => manager.NameModifiers.Select(mod => name + mod).ToList())
                 .Aggregate((acc, cur) => acc.Concat(cur).ToList())
@@ -23,7 +26,19 @@ namespace Assets.Scripts.Phases
         public override void Enter()
         {
             Debug.Log("Entering Spawn phase");
-            spawnPanel.SetActive(true);
+            if (manager.Soul > 0)
+            {
+                spawnPanel.SetActive(true);
+            }
+            else
+            {
+                restartPanel.SetActive(true);
+                manager.ClearBattleLog();
+                manager.LogBattleEvent("As you reach for the dust, your hand fades as your connection to the material plane disintigrates.");
+                manager.LogBattleEvent("The nations of the mortal world rejoice as the blood god disappears from their world.");
+                manager.LogBattleEvent("Congratulations! You lost!");
+                manager.LogBattleEvent("Next time, try to better manage your souls. You will have to make sacrifices, but when a virgin touches an idol they will generate more power for you. Promiscuous individuals can as well, but be warned that they may not be so helpful.");
+            }
         }
 
         public override void Action(string action)
