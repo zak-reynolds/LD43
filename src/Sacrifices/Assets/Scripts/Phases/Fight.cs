@@ -51,6 +51,8 @@ namespace Assets.Scripts.Phases
                     manager.KillPleb(loser);
                     manager.BoostPleb(winner);
                     manager.LogBattleEvent($"{winner.Name} tears out {loser.Name}'s spine and eats it for its power.");
+
+                    manager.LineControllers[(int)winner.Position.CurrentLocation].FightPlebs(winner.Position.MarchingOrder, loser.Position.MarchingOrder, winner.Position.MarchingOrder);
                     break;
                 case "kiss":
                     manager.LogBattleEvent("They embrace!");
@@ -59,6 +61,8 @@ namespace Assets.Scripts.Phases
                     manager.KissPleb(combatantA);
                     manager.KissPleb(combatantB);
                     manager.LogBattleEvent("Their love boosts their strength, but they seem less.. virginal.");
+
+                    manager.LineControllers[(int)combatantA.Position.CurrentLocation].KissPlebs(combatantA.Position.MarchingOrder, combatantB.Position.MarchingOrder);
                     break;
             }
             manager.NextPhase();

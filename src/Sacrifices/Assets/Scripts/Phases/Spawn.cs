@@ -48,6 +48,8 @@ namespace Assets.Scripts.Phases
             manager.ClearBattleLog();
             manager.LogBattleEvent($"{name} arises from the dust.");
 
+            manager.LineControllers[0].SpawnPleb(manager.Plebs.Last());
+
             manager.NextPhase();
         }
 
