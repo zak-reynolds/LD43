@@ -32,7 +32,7 @@ namespace Assets.Scripts.Phases
             advancePanelPleb.SetActive(false);
             if (!manager.ReadOnlyLocationReference.Values.Any(loc => loc.Count > 1))
             {
-                manager.LogBattleEvent("The plebs stand, biding their time.");
+                manager.LogBattleEvent("The loved ones stand, biding their time.");
                 manager.NextPhase();
             }
             return null;
