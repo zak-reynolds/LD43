@@ -10,13 +10,14 @@ In rough order that they should be done
 - wording updates
     - sacrifice > Hold the Door
 - game doesn't have a name
+- rooms don't have names or identifying features
 
 ## Features:
 - combatant indicator
 - room indicator above arrow buttons at bottom of screen
 - better soul indicator (make it BIG!)
 - phase banners
-- tutorial/help button
+- tutorial/help button (Sample Scene/Canvas/HelpPanel/Tutorial Text)
 - player given names
 - 3D bg
 - endgame effect
