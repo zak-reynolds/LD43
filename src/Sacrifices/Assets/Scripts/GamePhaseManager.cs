@@ -31,6 +31,7 @@ public class GamePhaseManager : MonoBehaviour
     public GameObject MoveButton;
     public GameObject DoorButton;
     public GameObject ConsumeButton;
+    public PlebMoveButtonCreator PlebMoveButtonCreator;
     public GameObject ActionBar;
     public List<LineController> LineControllers;
     public CameraController CameraController;
@@ -79,7 +80,8 @@ public class GamePhaseManager : MonoBehaviour
             int numPlebsInRoom = locationReference[value].Count();
             MoveButton.SetActive(numPlebsInRoom >= 2);
             DoorButton.SetActive(numPlebsInRoom >= 1);
-            ConsumeButton.SetActive(numPlebsInRoom >= 1);
+            ConsumeButton.SetActive(numPlebsInRoom >= 1 && value != Position.Location.A);
+            PlebMoveButtonCreator.CreateButtons();
         }
     }
     private Position.Location selectedLocation;
