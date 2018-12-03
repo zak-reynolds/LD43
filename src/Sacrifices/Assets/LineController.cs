@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LineController : MonoBehaviour {
@@ -8,6 +9,7 @@ public class LineController : MonoBehaviour {
     public GameObject plebPrototype;
     public float speed = 8;
     public LineController next;
+    public Position.Location Location;
 
     private List<GameObject> plebGobs = new List<GameObject>(10);
     private float plebSpacing = 2f;
@@ -116,7 +118,7 @@ public class LineController : MonoBehaviour {
         yield return new WaitForSeconds(p.Strength * 0.5f);
         anim.SetTrigger("Kill");
         yield return new WaitForSeconds(3);
-        Destroy(anim.gameObject);
+        Destroy(anim.gameObject.transform.parent.gameObject);
         RefreshOrder();
     }
 
@@ -140,5 +142,18 @@ public class LineController : MonoBehaviour {
         anim.SetTrigger("Stop");
         sprite.flipX = false;
         Debug.Log($"Moved {plebGob.name} to {targetLine.gameObject.name} / {targetPosition}");
+    }
+
+    public void UpdatePlebText(GamePhaseManager manager)
+    {
+        foreach (var gob in plebGobs)
+        {
+            Pleb pleb = manager.Plebs.Where(p => p.Name == gob.name).FirstOrDefault();
+            if (pleb != null)
+            {
+                string virgin = pleb.Virginity == 0 ? "VIRGIN" : "";
+                gob.GetComponentInChildren<TextMesh>().text = $"{pleb.Name}\nSTR: {pleb.Strength}\n{virgin}";
+            }
+        }
     }
 }

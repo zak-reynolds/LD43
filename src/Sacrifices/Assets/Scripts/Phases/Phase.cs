@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Phases
+﻿using Assets.Scripts.Models;
+
+namespace Assets.Scripts.Phases
 {
     public class Phase
     {
@@ -9,7 +11,9 @@
             this.manager = manager;
         }
 
-        public virtual void Enter() { }
+        public virtual Position.Location? Enter() {
+            return Position.Location.A;
+        }
         public virtual void Action(string action) { }
         public virtual void Exit() { }
     }

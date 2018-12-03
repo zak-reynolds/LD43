@@ -23,7 +23,7 @@ namespace Assets.Scripts.Phases
             advancePanelPleb.SetActive(false);
         }
 
-        public override void Enter()
+        public override Position.Location? Enter()
         {
             Debug.Log("Entering Advance phase");
             advancePanel.SetActive(true);
@@ -34,8 +34,8 @@ namespace Assets.Scripts.Phases
             {
                 manager.LogBattleEvent("The plebs stand, biding their time.");
                 manager.NextPhase();
-                return;
             }
+            return null;
         }
 
         public override void Action(string action)
@@ -64,6 +64,7 @@ namespace Assets.Scripts.Phases
                     manager.LineControllers[(int)sacrifice.Position.CurrentLocation].HoldTheDoor(sacrifice, numAdvanced);
                     manager.SacrificePleb(targetLocation);
                     manager.LogBattleEvent($"{sacrifice.Name} can no longer hold on and is brutally crushed under the door's weight.");
+                    manager.AudioSource.PlayOneShot(manager.SlabSlam);
                     break;
                 case "consume":
                     var touchTargetLocation = (Position.Location)Enum.Parse(typeof(Position.Location), actionTarget);
@@ -72,6 +73,7 @@ namespace Assets.Scripts.Phases
                     manager.ConsumePleb(touchSacrifice);
 
                     manager.LineControllers[(int)touchSacrifice.Position.CurrentLocation].ConsumePleb();
+                    manager.AudioSource.PlayOneShot(manager.Consume);
                     break;
             }
             manager.NextPhase();

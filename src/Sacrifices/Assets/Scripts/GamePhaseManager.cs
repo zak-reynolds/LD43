@@ -1,18 +1,34 @@
 ﻿using Assets.Scripts.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GamePhaseManager : MonoBehaviour {
+public class GamePhaseManager : MonoBehaviour
+{
+    [Header("Audio")]
+    public AudioClip[] RoomMusic;
+    public AudioSource AudioSource;
+    public AudioMixerGroup[] Mixers;
+    public AudioMixer AudioMixer;
+
+    public AudioClip StartTurn;
+    public AudioClip[] Kiss;
+    public AudioClip SlabSlam;
+    public AudioClip Consume;
+    public AudioClip Kill;
+
     [Header("References")]
     public Text SoulCounter;
     public Text PlebListText;
     public Text BattleLog;
     public GameObject ActionBar;
     public List<LineController> LineControllers;
+    public CameraController CameraController;
 
     [Header("Game Balance")]
     public int StartingSoul = 20;
@@ -51,6 +67,15 @@ public class GamePhaseManager : MonoBehaviour {
         phases.Add(Phase.Advance, new Assets.Scripts.Phases.Advance(this));
         phases[phase].Enter();
         UpdateUI();
+
+        for (int i = 0; i < 5; ++i)
+        {
+            var audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = RoomMusic[i];
+            audioSource.Play();
+            audioSource.loop = true;
+            audioSource.outputAudioMixerGroup = Mixers[i];
+        }
     }
 
     public void UpdateUI()
@@ -62,7 +87,7 @@ public class GamePhaseManager : MonoBehaviour {
                 plebs
                     .OrderBy(p => p.Position.CurrentLocation)
                     .ThenBy(p => p.Position.MarchingOrder)
-                    .Select(p => $"{p.Position.MarchingOrder} - {p.Name} - {p.Position.CurrentLocation}\nS{p.Strength} - V{p.Virginity}"));
+                    .Select(p => $"{p.Name} - {p.Position.CurrentLocation}\nS{p.Strength} - V{p.Virginity}"));
         BattleLog.text = String.Join("\n", battleEvents);
     }
 
@@ -94,7 +119,16 @@ public class GamePhaseManager : MonoBehaviour {
 
     public void NextPhase()
     {
+        StartCoroutine(NextPhaseCo());
+    }
+
+    private IEnumerator NextPhaseCo()
+    {
         phases[phase].Exit();
+        foreach (var lc in LineControllers)
+        {
+            lc.UpdatePlebText(this);
+        }
         switch (phase)
         {
             case Phase.Spawn:
@@ -107,7 +141,12 @@ public class GamePhaseManager : MonoBehaviour {
                 phase = Phase.Spawn;
                 break;
         }
-        phases[phase].Enter();
+        yield return new WaitForSeconds(3.5f);
+        var location = phases[phase].Enter();
+        if (location != null)
+        {
+            CameraController.Focus = (Position.Location)location;
+        }
     }
 
     public void LogBattleEvent(string @event)
@@ -119,6 +158,9 @@ public class GamePhaseManager : MonoBehaviour {
     public void ClearBattleLog()
     {
         battleEvents.Clear();
+        AudioSource.PlayOneShot(StartTurn);
+        string snapshot = plebs.Any() ? $"R{plebs.Max(p => (int)p.Position.CurrentLocation) + 1}" : "R1";
+        AudioMixer.TransitionToSnapshots(new AudioMixerSnapshot[] { AudioMixer.FindSnapshot(snapshot) }, new[] { 1f }, 2f);
     }
 
     public void PhaseAction(string action)
