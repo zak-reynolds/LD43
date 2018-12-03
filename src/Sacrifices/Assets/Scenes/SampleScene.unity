@@ -12023,7 +12023,7 @@ Prefab:
     - target: {fileID: 8195094281942022698, guid: 5535d85b004922a418e13752bff2d2a9,
         type: 2}
       propertyPath: m_Tiles.Array.data[175].first.x
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8195094281942022698, guid: 5535d85b004922a418e13752bff2d2a9,
         type: 2}
@@ -25716,6 +25716,11 @@ Prefab:
         type: 2}
       propertyPath: m_Tiles.Array.data[250].second.m_TileMatrixIndex
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195094281942022698, guid: 5535d85b004922a418e13752bff2d2a9,
+        type: 2}
+      propertyPath: m_Tiles.Array.data[249].second.m_TileMatrixIndex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5535d85b004922a418e13752bff2d2a9, type: 2}
