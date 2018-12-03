@@ -25,6 +25,7 @@ public class PlebMoveButtonCreator : MonoBehaviour {
         {
             var gob = Instantiate(MoveButtonPrefab, gameObject.transform);
             gob.GetComponent<Button>().onClick.AddListener(() => manager.PhaseAction($"move`{pleb.Name}"));
+            gob.GetComponent<Button>().onClick.AddListener(() => manager.MoveButton.SetActive(false));
             gob.GetComponentInChildren<Text>().text = pleb.Name;
             existingButtons.Add(gob);
         }

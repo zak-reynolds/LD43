@@ -26,6 +26,11 @@ public class GamePhaseManager : MonoBehaviour
     public Text SoulCounter;
     public Text PlebListText;
     public Text BattleLog;
+    public Text RoomName;
+    public GameObject[] CamButtons;
+    public GameObject MoveButton;
+    public GameObject DoorButton;
+    public GameObject ConsumeButton;
     public GameObject ActionBar;
     public List<LineController> LineControllers;
     public CameraController CameraController;
@@ -46,7 +51,38 @@ public class GamePhaseManager : MonoBehaviour
     public Dictionary<Position.Location, List<Pleb>> ReadOnlyLocationReference => locationReference;
     private Phase phase = Phase.Spawn;
     private List<string> battleEvents = new List<string>();
-    public Position.Location SelectedLocation { get; private set; }
+    public Position.Location SelectedLocation {
+        get
+        {
+            return selectedLocation;
+        }
+        private set
+        {
+            selectedLocation = value;
+            CameraController.Focus = value;
+            RoomName.text =
+                value == Position.Location.A ? "Blood God's Chamber" :
+                value == Position.Location.B ? "Corridor of Hope" :
+                value == Position.Location.C ? "Corridor of Despair" :
+                value == Position.Location.D ? "Entry to the Altar" :
+                "The Altar of the Blood God";
+            CamButtons[0].GetComponent<Button>().interactable = true;
+            CamButtons[1].GetComponent<Button>().interactable = true;
+            if (value == Position.Location.A)
+            {
+                CamButtons[0].GetComponent<Button>().interactable = false;
+            }
+            if (value == Position.Location.D)
+            {
+                CamButtons[1].GetComponent<Button>().interactable = false;
+            }
+            int numPlebsInRoom = locationReference[value].Count();
+            MoveButton.SetActive(numPlebsInRoom >= 2);
+            DoorButton.SetActive(numPlebsInRoom >= 1);
+            ConsumeButton.SetActive(numPlebsInRoom >= 1);
+        }
+    }
+    private Position.Location selectedLocation;
     private Pleb selectedPleb;
 
     private Dictionary<Phase, Assets.Scripts.Phases.Phase> phases = new Dictionary<Phase, Assets.Scripts.Phases.Phase>(3);
@@ -66,6 +102,7 @@ public class GamePhaseManager : MonoBehaviour
         phases.Add(Phase.Fight, new Assets.Scripts.Phases.Fight(this));
         phases.Add(Phase.Advance, new Assets.Scripts.Phases.Advance(this));
         phases[phase].Enter();
+        SelectedLocation = Position.Location.A;
         UpdateUI();
 
         for (int i = 0; i < 5; ++i)
@@ -282,6 +319,22 @@ public class GamePhaseManager : MonoBehaviour
     {
         SelectedLocation = (Position.Location)location;
         Debug.Log($"Set SelectedLocation to {SelectedLocation}");
+    }
+
+    public void NextRoom()
+    {
+        if (SelectedLocation != Position.Location.D)
+        {
+            SelectedLocation = (Position.Location)((int)SelectedLocation + 1);
+        }
+    }
+
+    public void BackRoom()
+    {
+        if (SelectedLocation != Position.Location.A)
+        {
+            SelectedLocation = (Position.Location)((int)SelectedLocation - 1);
+        }
     }
 
     public void SelectPleb(string name)

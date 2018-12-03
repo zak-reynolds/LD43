@@ -8,18 +8,15 @@ namespace Assets.Scripts.Phases
     public class Advance : Phase
     {
         private GameObject advancePanel;
-        private GameObject advancePanelRoom;
         private GameObject advancePanelPick;
         private GameObject advancePanelPleb;
         public Advance(GamePhaseManager manager) : base(manager)
         {
             advancePanel = GameObject.FindGameObjectWithTag("AdvancePanel");
-            advancePanelRoom = GameObject.FindGameObjectWithTag("AdvancePanel-Room");
             advancePanelPick = GameObject.FindGameObjectWithTag("AdvancePanel-Pick");
             advancePanelPleb = GameObject.FindGameObjectWithTag("AdvancePanel-Pleb");
             advancePanel.SetActive(false);
-            advancePanelRoom.SetActive(false);
-            advancePanelPick.SetActive(false);
+            advancePanelPick.SetActive(true);
             advancePanelPleb.SetActive(false);
         }
 
@@ -27,12 +24,11 @@ namespace Assets.Scripts.Phases
         {
             Debug.Log("Entering Advance phase");
             advancePanel.SetActive(true);
-            advancePanelRoom.SetActive(true);
-            advancePanelPick.SetActive(false);
+            advancePanelPick.SetActive(true);
             advancePanelPleb.SetActive(false);
             if (!manager.ReadOnlyLocationReference.Values.Any(loc => loc.Count > 1))
             {
-                manager.LogBattleEvent("The loved ones stand, biding their time.");
+                manager.LogBattleEvent("The plebs stand, biding their time.");
                 manager.NextPhase();
             }
             return null;
