@@ -49,15 +49,19 @@ namespace Assets.Scripts.Phases
                     var target = manager.Plebs.Where(p => p.Name == actionTarget).First();
                     manager.LogBattleEvent($"{target.Name} hops to the front of the line.");
                     manager.MovePleb(target);
+
+                    manager.LineControllers[(int)target.Position.CurrentLocation].MovePleb(target);
                     break;
                 case "sacrifice":
                     var targetLocation = (Position.Location)Enum.Parse(typeof(Position.Location), actionTarget);
                     var sacrifice = manager.GetActivePleb(targetLocation);
                     manager.LogBattleEvent($"{sacrifice.Name} valiantly holds the door!");
+                    int numAdvanced = 0;
                     for (int i = 0; i < sacrifice.Strength; ++i)
                     {
-                        manager.AdvancePleb(targetLocation);
+                        numAdvanced += manager.AdvancePleb(targetLocation) ? 1 : 0;
                     }
+                    manager.LineControllers[(int)sacrifice.Position.CurrentLocation].HoldTheDoor(sacrifice, numAdvanced);
                     manager.SacrificePleb(targetLocation);
                     manager.LogBattleEvent($"{sacrifice.Name} can no longer hold on and is brutally crushed under the door's weight.");
                     break;
@@ -66,6 +70,8 @@ namespace Assets.Scripts.Phases
                     var touchSacrifice = manager.GetActivePleb(touchTargetLocation);
                     manager.LogBattleEvent($"{touchSacrifice.Name} feels compelled to walk to the idol and place a hand on it.");
                     manager.ConsumePleb(touchSacrifice);
+
+                    manager.LineControllers[(int)touchSacrifice.Position.CurrentLocation].ConsumePleb();
                     break;
             }
             manager.NextPhase();

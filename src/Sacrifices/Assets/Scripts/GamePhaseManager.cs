@@ -12,6 +12,7 @@ public class GamePhaseManager : MonoBehaviour {
     public Text PlebListText;
     public Text BattleLog;
     public GameObject ActionBar;
+    public List<LineController> LineControllers;
 
     [Header("Game Balance")]
     public int StartingSoul = 20;
@@ -178,13 +179,13 @@ public class GamePhaseManager : MonoBehaviour {
         UpdateUI();
     }
 
-    public void AdvancePleb(Position.Location location)
+    public bool AdvancePleb(Position.Location location)
     {
         var locationPlebs = locationReference[location];
         if (locationPlebs.Count < 2)
         {
             Debug.LogError($"Cannot advance with fewer than two plebs at {location}");
-            return;
+            return false;
         }
         var nextLocation = (Position.Location)((int)location + 1);
         var nextLocationPlebs = locationReference[nextLocation];
@@ -201,6 +202,7 @@ public class GamePhaseManager : MonoBehaviour {
         }
 
         UpdateUI();
+        return true;
     }
 
     private void AltarSacrificePleb(Pleb pleb)
