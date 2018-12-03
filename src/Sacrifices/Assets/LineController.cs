@@ -46,7 +46,7 @@ public class LineController : MonoBehaviour {
         animB.SetTrigger("Fight");
         yield return new WaitForSeconds(1);
         animA.SetTrigger(winner == a ? "Stop" : "Kill");
-        animA.SetTrigger(winner == b ? "Stop" : "Kill");
+        animB.SetTrigger(winner == b ? "Stop" : "Kill");
         yield return new WaitForSeconds(2);
         int loser = winner == a ? b : a;
         Destroy(plebGobs[loser]);
@@ -91,6 +91,7 @@ public class LineController : MonoBehaviour {
         yield return new WaitForSeconds(2);
         Destroy(plebGobs[0]);
         plebGobs.RemoveAt(0);
+        RefreshOrder();
     }
 
 
@@ -114,7 +115,7 @@ public class LineController : MonoBehaviour {
         }
         yield return new WaitForSeconds(p.Strength * 0.5f);
         anim.SetTrigger("Kill");
-        yield return new WaitForSeconds(p.Strength * 0.5f);
+        yield return new WaitForSeconds(3);
         Destroy(anim.gameObject);
         RefreshOrder();
     }

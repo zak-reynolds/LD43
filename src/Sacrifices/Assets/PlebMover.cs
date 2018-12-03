@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlebMover : MonoBehaviour {
 
     public Vector3 TargetPosition {
         set {
-            gameObject.GetComponentInChildren<SpriteRenderer>().flipX = targetPosition.x < transform.position.x;
             targetPosition = value;
+            gameObject.GetComponentInChildren<SpriteRenderer>().flipX = targetPosition.x < transform.position.x;
         }
     }
     private Vector3 targetPosition;
