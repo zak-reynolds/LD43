@@ -82,7 +82,7 @@ public class GamePhaseManager : MonoBehaviour
             int numPlebsInRoom = locationReference[value].Count();
             MoveButton.SetActive(numPlebsInRoom >= 2);
             DoorButton.SetActive(numPlebsInRoom >= 1);
-            ConsumeButton.SetActive(numPlebsInRoom >= 1 && value != Position.Location.A);
+            ConsumeButton.SetActive(numPlebsInRoom >= 1 && (value == Position.Location.B || value == Position.Location.C));
             PlebMoveButtonCreator.CreateButtons();
         }
     }
