@@ -60,7 +60,9 @@ namespace Assets.Scripts.Phases
                     manager.LineControllers[(int)sacrifice.Position.CurrentLocation].HoldTheDoor(sacrifice, numAdvanced);
                     manager.SacrificePleb(targetLocation);
                     manager.LogBattleEvent($"{sacrifice.Name} can no longer hold on and is brutally crushed under the door's weight.");
-                    manager.AudioSource.PlayOneShot(manager.SlabSlam);
+                    if ((int)targetLocation < 3) {
+                        manager.Slabs[(int)targetLocation].Open(numAdvanced);
+                    }
                     break;
                 case "consume":
                     var touchTargetLocation = (Position.Location)Enum.Parse(typeof(Position.Location), actionTarget);

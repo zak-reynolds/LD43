@@ -35,6 +35,7 @@ public class GamePhaseManager : MonoBehaviour
     public GameObject ActionBar;
     public List<LineController> LineControllers;
     public CameraController CameraController;
+    public SlabMovement[] Slabs;
 
     [Header("Game Balance")]
     public int StartingSoul = 20;
