@@ -30,7 +30,7 @@ namespace Assets.Scripts.Phases
                 .ToArray();
             if (combatants == null)
             {
-                manager.LogBattleEvent("No one is looking at each other. If three loved ones are in any room, a random encounter will occur.");
+                manager.LogBattleEvent("No one is looking at each other. If at least 3 loved ones are in any room, a random encounter will occur.");
                 manager.NextPhase();
                 return null;
             }
