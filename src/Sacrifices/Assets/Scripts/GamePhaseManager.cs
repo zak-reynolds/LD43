@@ -23,6 +23,7 @@ public class GamePhaseManager : MonoBehaviour
     public AudioClip Kill;
 
     [Header("References")]
+    public Text ENCOUNTER;
     public Text SoulCounter;
     public Text PlebListText;
     public Text BattleLog;

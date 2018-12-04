@@ -36,6 +36,7 @@ namespace Assets.Scripts.Phases
             }
             combatantA = combatants[0];
             combatantB = combatants[1];
+            manager.ENCOUNTER.text = $"{combatantA.Name}\nlooks at\n{combatantB.Name}";
             manager.LogBattleEvent($"{combatantA.Name} looks at {combatantB.Name}.");
             return combatantA.Position.CurrentLocation;
         }
