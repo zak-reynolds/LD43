@@ -28,7 +28,7 @@ namespace Assets.Scripts.Phases
             advancePanelPleb.SetActive(false);
             if (!manager.ReadOnlyLocationReference.Values.Any(loc => loc.Count > 1))
             {
-                manager.LogBattleEvent("The plebs stand, biding their time.");
+                manager.LogBattleEvent("Your loved ones stand, biding their time. There is nothing to do.");
                 manager.NextPhase();
             }
             return manager.SelectedLocation;

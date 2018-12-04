@@ -36,6 +36,7 @@ public class GamePhaseManager : MonoBehaviour
     public List<LineController> LineControllers;
     public CameraController CameraController;
     public SlabMovement[] Slabs;
+    public PhaseBanner[] PhaseBanners;
 
     [Header("Game Balance")]
     public int StartingSoul = 20;
@@ -107,6 +108,7 @@ public class GamePhaseManager : MonoBehaviour
         phases[phase].Enter();
         SelectedLocation = Position.Location.A;
         UpdateUI();
+        PhaseBanners[0].Activate();
 
         for (int i = 0; i < 5; ++i)
         {
@@ -173,12 +175,15 @@ public class GamePhaseManager : MonoBehaviour
         {
             case Phase.Spawn:
                 phase = Phase.Fight;
+                PhaseBanners[1].Activate();
                 break;
             case Phase.Fight:
                 phase = Phase.Advance;
+                PhaseBanners[2].Activate();
                 break;
             case Phase.Advance:
                 phase = Phase.Spawn;
+                PhaseBanners[0].Activate();
                 break;
         }
         yield return new WaitForSeconds(3.5f);
