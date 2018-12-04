@@ -31,7 +31,7 @@ namespace Assets.Scripts.Phases
                 manager.LogBattleEvent("The plebs stand, biding their time.");
                 manager.NextPhase();
             }
-            return null;
+            return manager.SelectedLocation;
         }
 
         public override void Action(string action)

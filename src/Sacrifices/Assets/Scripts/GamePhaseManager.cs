@@ -184,7 +184,7 @@ public class GamePhaseManager : MonoBehaviour
         var location = phases[phase].Enter();
         if (location != null)
         {
-            CameraController.Focus = (Position.Location)location;
+            SelectedLocation = (Position.Location)location;
         }
     }
 
