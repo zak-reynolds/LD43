@@ -10,6 +10,16 @@ In rough order that they should be done
 - wording updates
     - sacrifice > Hold the Door
 - game doesn't have a name
+Soul Ritual
+Soul Sacrament
+Blood Libation
+Soul Oblation
+Virgin Voyage
+Altared Fates
+The Fate of the Altared
+
+
+
 - rooms don't have names or identifying features
 
 ## Features:
